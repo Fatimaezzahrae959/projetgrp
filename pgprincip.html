@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Restaurant EL-KHAIR</title>
+    <link rel="shortcut icon" href="logo-recettes-cuisine-v3.png" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body class="bg-black text-white">
+    <!-- Barre de navigation -->
+    <nav class="flex items-center justify-between p-4 bg-black text-white">
+      <div class="logo font-bold text-xl text-orange-500">
+        Restaurant EL-KHAIR
+      </div>
+      <button class="md:hidden text-orange-500 text-2xl">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <ul class="hidden md:flex space-x-6">
+        <!-- Liens principaux -->
+        <li>
+          <a
+            href="#"
+            class="flex items-center hover:text-orange-500 transition duration-300"
+          >
+            <i
+              class="fas fa-home mr-2 hover:text-orange-500 transition duration-300"
+            ></i>
+            Accueil
+          </a>
+        </li>
+        <li>
+          <a
+            href="#"
+            class="flex items-center hover:text-orange-500 transition duration-300"
+          >
+            <i
+              class="fas fa-utensils mr-2 hover:text-orange-500 transition duration-300"
+            ></i>
+            Menu
+          </a>
+        </li>
+        <li>
+          <a
+            href="#"
+            class="flex items-center hover:text-orange-500 transition duration-300"
+          >
+            <i
+              class="fas fa-phone mr-2 hover:text-orange-500 transition duration-300"
+            ></i>
+            Contact
+          </a>
+        </li>
+        <li>
+          <a
+            href="#"
+            class="flex items-center hover:text-orange-500 transition duration-300"
+          >
+            <i
+              class="fas fa-info-circle mr-2 hover:text-orange-500 transition duration-300"
+            ></i>
+            À propos
+          </a>
+        </li>
+
+        <!-- Liens : Se connecter et Créer un compte -->
+        <li>
+          <a
+            href="#"
+            class="flex items-center hover:text-orange-500 transition duration-300"
+          >
+            <i
+              class="fas fa-sign-in-alt mr-2 hover:text-orange-500 transition duration-300"
+            ></i>
+            Se connecter
+          </a>
+        </li>
+        <li>
+          <a
+            href="#"
+            class="flex items-center hover:text-orange-500 transition duration-300"
+          >
+            <i
+              class="fas fa-user-plus mr-2 hover:text-orange-500 transition duration-300"
+            ></i>
+            Créer un compte
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <main id="main-section">
+      <!-- Section principale : Image à droite, Titre et Boutons à gauche -->
+      <section
+        class="flex flex-col md:flex-row items-center justify-center mt-10 px-4"
+      >
+        <!-- Conteneur gauche : Titre et Boutons -->
+        <div class="text-center md:text-left md:w-1/2 px-4">
+          <h1 class="text-3xl md:text-4xl font-bold mb-4">
+            <span class="fas fa-bookmark text-orange-500 mr-2"></span>
+            Bienvenue dans votre restaurant préféré
+          </h1>
+          <p class="text-lg mb-6">
+            Bienvenue sur le site du restaurant ELKHAIR. Nous vous proposons une
+            cuisine traditionnelle et familiale, élaborée à partir de produits
+            frais et de saison. Venez déguster nos plats dans un cadre
+            chaleureux et convivial. Nous vous accueillons du lundi au vendredi
+            de 12h à 14h et de 19h à 22h, et le samedi de 19h à 22h. A bientôt !
+          </p>
+          <div
+            class="flex flex-col space-y-4 md:space-y-0 md:flex-row md:space-x-4"
+          >
+            <a
+              href="#"
+              class="btn bg-orange-500 text-white py-2 px-4 rounded-md hover:bg-orange-600 transition duration-300"
+            >
+              Réserver une table
+            </a>
+            <a
+              href="#"
+              class="btn border border-orange-500 text-orange-500 py-2 px-4 rounded-md hover:bg-orange-500 hover:text-white transition duration-300"
+            >
+              Voir le menu
+            </a>
+          </div>
+        </div>
+
+        <!-- Conteneur droit : Image -->
+        <div class="md:w-1/3">
+          <img
+            src="imgflow.jpeg"
+            alt="Image du restaurant"
+            class="rounded-lg shadow-lg max-w-full hover:opacity-70 hover:shadow-2xl transition duration-700"
+          />
+        </div>
+      </section>
+    </main>
+
+    <!-- Pied de page -->
+    <footer class="hidden md:block text-center p-4 bg-black text-white">
+      <p class="text-sm">&copy; 2025 Restaurant. Tous droits réservés.</p>
+    </footer>
+  </body>
+</html>
