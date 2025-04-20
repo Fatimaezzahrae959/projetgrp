@@ -88,10 +88,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // S'il n'y a pas d'erreurs, mettre à jour les données
     if (empty($errors)) {
+        // Mise à jour dans la base de données
         $update_stmt = $conn->prepare("UPDATE user SET `prénom` = ?, nom = ?, email = ?, `téléphone` = ?, `mot_de_passe` = ? WHERE CIN = ?");
         $update_stmt->bind_param("ssssss", $prenom, $nom, $email, $telephone, $password, $cin);
 
         if ($update_stmt->execute()) {
+            // Mise à jour dans le fichier JSON
+            $jsonFile = 'utilisateurs.json';
+            if (file_exists($jsonFile)) {
+                $jsonData = file_get_contents($jsonFile);
+                $usersArray = json_decode($jsonData, true);
+            } else {
+                $usersArray = [];
+            }
+
+            // Mettre à jour l'utilisateur dans le tableau JSON
+            foreach ($usersArray as &$userData) {
+                if ($userData['CIN'] == $cin) {
+                    $userData['prénom'] = $prenom;
+                    $userData['nom'] = $nom;
+                    $userData['email'] = $email;
+                    $userData['téléphone'] = $telephone;
+                    $userData['mot_de_passe'] = $password;
+                    break;
+                }
+            }
+
+            // Sauvegarder les données mises à jour dans le fichier JSON
+            file_put_contents($jsonFile, json_encode($usersArray, JSON_PRETTY_PRINT));
+
             // Redirection vers le tableau avec un message de succès
             header("Location: tableau.php?success=Utilisateur modifié avec succès");
             exit();
@@ -106,6 +131,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 $conn->close();
 ?>
 
+<!-- HTML code remains unchanged -->
+
+
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -114,6 +142,7 @@ $conn->close();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modifier l'utilisateur</title>
     <link rel="stylesheet" href="style.css">
+
 </head>
 
 <body>
@@ -126,6 +155,7 @@ $conn->close();
             echo '<div class="error-message">' . implode("<br>", $errors) . '</div>';
         }
         ?>
+
 
         <form id="modificationForm" method="POST" onsubmit="return validateForm()">
             <div class="form-group">
@@ -168,7 +198,7 @@ $conn->close();
 
             <div class="button-group">
                 <button type="submit" class="submit-btn">Enregistrer les modifications</button>
-                <a href="tableau.php" class="cancel-btn">Annuler</a>
+
             </div>
         </form>
     </div>

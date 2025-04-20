@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    ]
+
 
 
 
@@ -38,7 +38,7 @@
         }
         ?>
 
-        <form id="registrationForm" action="process.php" method="POST" onsubmit="return validateForm()">
+        <form id="registrationForm" action="process.php " method="POST" onsubmit="return validateForm()">
             <div class="form-group">
                 <label for="cin">CIN:</label>
                 <input type="text" id="cin" name="cin" placeholder="Entrez votre CIN">

@@ -88,6 +88,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->bind_param("ssssss", $cin, $nom, $prenom, $email, $telephone, $password);
 
     if ($stmt->execute()) {
+        // 🔁 Génération automatique du fichier JSON après insertion
+
+        $sql_json = "SELECT * FROM user";
+        $result_json = $conn->query($sql_json);
+
+        if ($result_json->num_rows > 0) {
+            $data = [];
+
+            while ($row = $result_json->fetch_assoc()) {
+                $data[] = $row;
+            }
+
+            $json_data = json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+
+            // 📁 Chemin du fichier JSON (tu peux le changer si tu veux)
+            file_put_contents("utilisateurs.json", $json_data);
+        }
+
+        // ✅ Redirection vers le tableau
         header("Location: tableau.php");
         exit();
     }
@@ -96,4 +115,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 $conn->close();
+
 ?>

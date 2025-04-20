@@ -172,7 +172,7 @@
 
                         // Préparer la requête de suppression
                         $delete_stmt = $conn->prepare("DELETE FROM user WHERE CIN = ?");
-                        $delete_stmt->bind_param("i", $cin_to_delete);
+                        $delete_stmt->bind_param("s", $cin_to_delete);
 
                         if ($delete_stmt->execute()) {
                             echo '<div class="success-message">Utilisateur supprimé avec succès!</div>';
@@ -198,13 +198,43 @@
                             echo "<td>" . htmlspecialchars($row["téléphone"]) . "</td>";
                             echo "<td class='actions-cell'>";
                             echo "<a href='modifier.php?cin=" . $row["CIN"] . "' class='action-btn'>Modifier</a>";
-                            echo "<a href='javascript:void(0)' onclick='confirmDelete(" . $row["CIN"] . ")' class='action-btn delete'>Supprimer</a>";
+                            echo "<a href='javascript:void(0)' onclick='confirmDelete(\"" . $row["CIN"] . "\")' class='action-btn delete'>Supprimer</a>";
                             echo "</td>";
                             echo "</tr>";
                         }
                     } else {
                         echo "<tr><td colspan='6' class='no-data'>Aucun utilisateur trouvé</td></tr>";
                     }
+                    // Vérifier s'il y a une demande de suppression
+                    if (isset($_GET['delete']) && !empty($_GET['delete'])) {
+                        $cin_to_delete = $_GET['delete'];
+
+                        // Charger le fichier JSON
+                        $json_file = 'utilisateurs.json';  // Le chemin vers ton fichier JSON
+                        $data = json_decode(file_get_contents($json_file), true);  // Lire et décoder le JSON en tableau PHP
+                    
+                        // Vérifier que le fichier JSON a bien été chargé
+                        if ($data === null) {
+                            echo 'Erreur lors du chargement du fichier JSON';
+                            exit;
+                        }
+
+                        // Filtrer les utilisateurs pour exclure celui à supprimer
+                        $filtered_data = array_filter($data, function ($user) use ($cin_to_delete) {
+                            return $user['CIN'] !== $cin_to_delete;  // Comparer le CIN et exclure l'utilisateur
+                        });
+
+                        // Réindexer les données (car array_filter préserve les clés)
+                        $filtered_data = array_values($filtered_data);
+
+                        // Sauvegarder les données filtrées dans le fichier JSON
+                        if (file_put_contents($json_file, json_encode($filtered_data, JSON_PRETTY_PRINT))) {
+                            echo 'Utilisateur supprimé avec succès du fichier JSON.';
+                        } else {
+                            echo 'Erreur lors de la mise à jour du fichier JSON.';
+                        }
+                    }
+
 
                     $conn->close();
                     ?>
